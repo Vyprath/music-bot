@@ -11,7 +11,7 @@ import json
 from youtube_search import YoutubeSearch
 
 client = commands.Bot(command_prefix = '?')
-Token = 'NzExMjQ0NDc2MTk4Mjg5NDM4.XstsPw.XL8xXNcYWs7w5Ph23fo1lh1Ec2M'
+Token = 'NzExMjQ0NDc2MTk4Mjg5NDM4.XtAIFw.kAv75FBKQfw3nJnUiCYo4dFWxpg'
 YOUTUBE_API = 'AIzaSyDmhOLQv6tNdYaElKnNGAhIq7kCl5gGsZA'
 HYPIXEL_API = '6cd7ce31-00e7-4f4d-9ce2-60af5bcc4bb8'
 
