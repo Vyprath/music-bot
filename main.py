@@ -66,6 +66,8 @@ async def clear(ctx, amount = None):
 
 @client.command(pass_context = True)
 async def join(ctx):
+    if not discord.opus.is_loaded():
+        discord.opus.load_opus('libopus.so')
     global voice
     channel = ctx.message.author.voice.channel
     voice = get(client.voice_clients, guild = ctx.guild)
