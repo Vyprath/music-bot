@@ -8,3 +8,4 @@ pip
 youtube_dl
 requests
 discord.py
+youtube_search
