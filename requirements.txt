@@ -9,5 +9,3 @@ youtube_dl
 requests
 discord.py
 youtube_search
-https://github.com/xrisk/heroku-opus.git
-https://github.com/jonathanong/heroku-buildpack-ffmpeg-latest.git
