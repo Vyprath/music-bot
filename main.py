@@ -41,9 +41,9 @@ async def info(ctx, member: discord.Member):
  
     embed = discord.Embed(colour=member.color, timestamp=ctx.message.created_at)
  
-    embed.set_author(name=f"User Info - {member}", inline = False)
-    embed.set_thumbnail(url=member.avatar_url, inline = False)
-    embed.set_footer(text=f"Requested by {ctx.author}", icon_url=ctx.author.avatar_url, inline = False)
+    embed.set_author(name=f"User Info - {member}")
+    embed.set_thumbnail(url=member.avatar_url)
+    embed.set_footer(text=f"Requested by {ctx.author}", icon_url=ctx.author.avatar_url)
  
     embed.add_field(name="ID:", value=member.id,inline = False)
     embed.add_field(name="Guild name:", value=member.display_name, inline = False)
