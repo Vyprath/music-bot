@@ -3,13 +3,12 @@ from discord.ext import commands
 from discord.utils import get
 import random
 import os
-import youtube_dl
-import shutil
 import requests as rq
 import re
 import json
-from youtube_search import YoutubeSearch
 import datetime
+import tabulate
+import prettytable
 
 client = commands.Bot(command_prefix = '?')
 Token = 'NzExMjQ0NDc2MTk4Mjg5NDM4.XtAIFw.kAv75FBKQfw3nJnUiCYo4dFWxpg'
@@ -122,7 +121,11 @@ async def bwstats(ctx, name: str):
     await ctx.send(embed=embed)
 
 @client.command(aliases = ['bwcompare', 'bwc'])
-async def bwcompare(ctx, name: str, name2: str):
+async def bwcomparison(ctx, name: str, name2: str):
+
+
+    pretty = prettytable.PrettyTable()
+
     HYPIXEL_LINK = rq.get('https://api.hypixel.net/player?key={}&name={}'.format(HYPIXEL_API, name)).json()
     bw_level = HYPIXEL_LINK['player']['achievements']['bedwars_level']
     bw_coins = HYPIXEL_LINK['player']['stats']['Bedwars']['coins']
@@ -136,43 +139,27 @@ async def bwcompare(ctx, name: str, name2: str):
     BBLR = round(int(HYPIXEL_LINK['player']['stats']['Bedwars']['beds_broken_bedwars']) / int(HYPIXEL_LINK['player']['stats']['Bedwars']['beds_lost_bedwars']), 2)
 
     HYPIXEL_LINK2 = rq.get('https://api.hypixel.net/player?key={}&name={}'.format(HYPIXEL_API, name2)).json()
-    bw_level2 = HYPIXEL_LINK['player']['achievements']['bedwars_level']
-    bw_coins2 = HYPIXEL_LINK['player']['stats']['Bedwars']['coins']
-    total_played2 = HYPIXEL_LINK['player']['stats']['Bedwars']["games_played_bedwars"]
-    total_won2 = HYPIXEL_LINK['player']['stats']['Bedwars']['wins_bedwars']
-    total_kills2 = HYPIXEL_LINK['player']['stats']['Bedwars']['kills_bedwars']
-    total_finals2 = HYPIXEL_LINK['player']['stats']['Bedwars']['final_kills_bedwars']
-    KDR2 = round(int(HYPIXEL_LINK['player']['stats']['Bedwars']['kills_bedwars']) / int(HYPIXEL_LINK['player']['stats']['Bedwars']['deaths_bedwars']), 2)
-    FKDR2 = round(int(HYPIXEL_LINK['player']['stats']['Bedwars']['final_kills_bedwars']) / int(HYPIXEL_LINK['player']['stats']['Bedwars']['final_deaths_bedwars']), 2)
-    Winstreak2 = HYPIXEL_LINK['player']['stats']['Bedwars']['winstreak']
-    BBLR2 = round(int(HYPIXEL_LINK['player']['stats']['Bedwars']['beds_broken_bedwars']) / int(HYPIXEL_LINK['player']['stats']['Bedwars']['beds_lost_bedwars']), 2)
+    bw_level2 = HYPIXEL_LINK2['player']['achievements']['bedwars_level']
+    bw_coins2 = HYPIXEL_LINK2['player']['stats']['Bedwars']['coins']
+    total_played2 = HYPIXEL_LINK2['player']['stats']['Bedwars']["games_played_bedwars"]
+    total_won2 = HYPIXEL_LINK2['player']['stats']['Bedwars']['wins_bedwars']
+    total_kills2 = HYPIXEL_LINK2['player']['stats']['Bedwars']['kills_bedwars']
+    total_finals2 = HYPIXEL_LINK2['player']['stats']['Bedwars']['final_kills_bedwars']
+    KDR2 = round(int(HYPIXEL_LINK2['player']['stats']['Bedwars']['kills_bedwars']) / int(HYPIXEL_LINK2['player']['stats']['Bedwars']['deaths_bedwars']), 2)
+    FKDR2 = round(int(HYPIXEL_LINK2['player']['stats']['Bedwars']['final_kills_bedwars']) / int(HYPIXEL_LINK2['player']['stats']['Bedwars']['final_deaths_bedwars']), 2)
+    Winstreak2 = HYPIXEL_LINK2['player']['stats']['Bedwars']['winstreak']
+    BBLR2 = round(int(HYPIXEL_LINK2['player']['stats']['Bedwars']['beds_broken_bedwars']) / int(HYPIXEL_LINK2['player']['stats']['Bedwars']['beds_lost_bedwars']), 2)
 
     embed = discord.Embed(colour = discord.Colour.blue(), title = f"Comparing bedwars stats for {name} and {name2} respectively.")
 
-    embed.set_author(name = "Requested by {}".format(ctx.author.name), icon_url= f"{ctx.author.avatar_url}")
-    embed.set_image(url = 'https://cdn.discordapp.com/attachments/706135793185456221/715261418953375773/image.png')
-    embed.add_field(name = "Level", value = f"{bw_level}", inline = True)
-    embed.add_field(name = "Level", value = f"{bw_level2}", inline = True)
-    embed.add_field(name = "Coins", value = f"{bw_coins}", inline = True)
-    embed.add_field(name = "Coins", value = f"{bw_coins2}", inline = True)
-    embed.add_field(name = "Games Played", value = f"{total_played}", inline = True)
-    embed.add_field(name = "Games Played", value = f"{total_played2}", inline = True)
-    embed.add_field(name = "Games Won", value = f"{total_won}", inline = True)
-    embed.add_field(name = "Games Won", value = f"{total_won2}", inline = True)
-    embed.add_field(name = "Kills", value = f"{total_kills}", inline = True)
-    embed.add_field(name = "Kills", value = f"{total_kills2}", inline = True)
-    embed.add_field(name = "Final Kills", value = f"{total_finals}", inline = True)
-    embed.add_field(name = "Final Kills", value = f"{total_finals2}", inline = True)
-    embed.add_field(name = "Kills/Death Ratio", value = f"{KDR}", inline = True)
-    embed.add_field(name = "Kills/Death Ratio", value = f"{KDR2}", inline = True)
-    embed.add_field(name = "Final Kills/Death Ratio", value = f"{FKDR}", inline = True)
-    embed.add_field(name = "Final Kills/Death Ratio", value = f"{FKDR2}", inline = True)
-    embed.add_field(name = "Winstreak", value = f"{Winstreak}", inline=True)
-    embed.add_field(name = "Winstreak", value = f"{Winstreak2}", inline=True)
-    embed.add_field(name = "Beds Broken/Lost Ratio", value = f"{BBLR}", inline = True)
-    embed.add_field(name = "Beds Broken/Lost Ratio", value = f"{BBLR2}", inline = True)
+    pretty.add_column('Criteria', ["Level", "Coins", "Games Played", 'Games Won', 'Total Kills', 'Final Kills','Final Kill/Death Ratio', 'Kill/Death Ratio', 'Winstreak', 'Beds Broken/Lost Ratio'])
+    pretty.add_column(name, [bw_level, bw_coins, total_played, total_won, total_kills, total_finals, FKDR, KDR, Winstreak, BBLR])
+    pretty.add_column(name2, [bw_level2, bw_coins2, total_played2, total_won2, total_kills2, total_finals2, FKDR2, KDR2, Winstreak2, BBLR2])
 
-    await ctx.send(embed=embed)
+
+
+
+    await ctx.send(f"```{pretty}```")
 
 
 
