@@ -7,7 +7,6 @@ import requests as rq
 import re
 import json
 import datetime
-import tabulate
 import prettytable
 
 client = commands.Bot(command_prefix = '?')
