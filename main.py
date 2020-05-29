@@ -172,6 +172,8 @@ async def bwcompare(ctx, name: str, name2: str):
     embed.add_field(name = "Beds Broken/Lost Ratio", value = f"{BBLR}", inline = True)
     embed.add_field(name = "Beds Broken/Lost Ratio", value = f"{BBLR2}", inline = True)
 
+    await ctx.send(embed=embed)
+
 
 
 
