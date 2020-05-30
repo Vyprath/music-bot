@@ -10,6 +10,7 @@ import datetime
 import prettytable
 
 client = commands.Bot(command_prefix = '?')
+TestToken = 'NzE2MjExMzgzNzU0MDMxMTU1.XtId3Q.9Wypv3NT8ywhV3yAKZvFn-ouslY'
 Token = 'NzExMjQ0NDc2MTk4Mjg5NDM4.XtAIFw.kAv75FBKQfw3nJnUiCYo4dFWxpg'
 YOUTUBE_API = 'AIzaSyDmhOLQv6tNdYaElKnNGAhIq7kCl5gGsZA'
 HYPIXEL_API = '6cd7ce31-00e7-4f4d-9ce2-60af5bcc4bb8'
@@ -158,7 +159,7 @@ async def bwcomparison(ctx, name: str, name2: str):
 
 
 
-    await ctx.send(f"```{pretty}```")
+    await ctx.send(f"```diff\n{pretty}```")
 
 
 
