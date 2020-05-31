@@ -102,6 +102,8 @@ async def bwstats(ctx, name: str):
     FKDR = round(int(HYPIXEL_LINK['player']['stats']['Bedwars']['final_kills_bedwars']) / int(HYPIXEL_LINK['player']['stats']['Bedwars']['final_deaths_bedwars']), 2)
     Winstreak = HYPIXEL_LINK['player']['stats']['Bedwars']['winstreak']
     BBLR = round(int(HYPIXEL_LINK['player']['stats']['Bedwars']['beds_broken_bedwars']) / int(HYPIXEL_LINK['player']['stats']['Bedwars']['beds_lost_bedwars']), 2)
+    WR = round(int(HYPIXEL_LINK['player']['stats']['Bedwars']['wins_bedwars']) / int(HYPIXEL_LINK['player']['stats']['Bedwars']["games_played_bedwars"]) * 100, 2)
+
 
     embed = discord.Embed(colour = discord.Colour.blue(), title = f"Bedwars stats for {name}")
 
@@ -111,6 +113,7 @@ async def bwstats(ctx, name: str):
     embed.add_field(name = "Coins", value = f"{bw_coins}", inline = False)
     embed.add_field(name = "Games Played", value = f"{total_played}", inline = False)
     embed.add_field(name = "Games Won", value = f"{total_won}", inline = False)
+    embed.add_field(name = "Win Rate", value = f"{WR}%", inline = False)
     embed.add_field(name = "Kills", value = f"{total_kills}", inline = False)
     embed.add_field(name = "Final Kills", value = f"{total_finals}", inline = False)
     embed.add_field(name = "Kills/Death Ratio", value = f"{KDR}")
@@ -131,6 +134,8 @@ async def bwcomparison(ctx, name: str, name2: str):
     bw_coins = HYPIXEL_LINK['player']['stats']['Bedwars']['coins']
     total_played = HYPIXEL_LINK['player']['stats']['Bedwars']["games_played_bedwars"]
     total_won = HYPIXEL_LINK['player']['stats']['Bedwars']['wins_bedwars']
+    WR = round(int(HYPIXEL_LINK['player']['stats']['Bedwars']['wins_bedwars']) / int(HYPIXEL_LINK['player']['stats']['Bedwars']["games_played_bedwars"]) * 100, 2)
+    fWR = f'{WR}%'
     total_kills = HYPIXEL_LINK['player']['stats']['Bedwars']['kills_bedwars']
     total_finals = HYPIXEL_LINK['player']['stats']['Bedwars']['final_kills_bedwars']
     KDR = round(int(HYPIXEL_LINK['player']['stats']['Bedwars']['kills_bedwars']) / int(HYPIXEL_LINK['player']['stats']['Bedwars']['deaths_bedwars']), 2)
@@ -143,6 +148,8 @@ async def bwcomparison(ctx, name: str, name2: str):
     bw_coins2 = HYPIXEL_LINK2['player']['stats']['Bedwars']['coins']
     total_played2 = HYPIXEL_LINK2['player']['stats']['Bedwars']["games_played_bedwars"]
     total_won2 = HYPIXEL_LINK2['player']['stats']['Bedwars']['wins_bedwars']
+    WR2 = round(int(HYPIXEL_LINK2['player']['stats']['Bedwars']['wins_bedwars']) / int(HYPIXEL_LINK2['player']['stats']['Bedwars']["games_played_bedwars"]) * 100, 2)
+    fWR2 = f'{WR2}%'
     total_kills2 = HYPIXEL_LINK2['player']['stats']['Bedwars']['kills_bedwars']
     total_finals2 = HYPIXEL_LINK2['player']['stats']['Bedwars']['final_kills_bedwars']
     KDR2 = round(int(HYPIXEL_LINK2['player']['stats']['Bedwars']['kills_bedwars']) / int(HYPIXEL_LINK2['player']['stats']['Bedwars']['deaths_bedwars']), 2)
@@ -152,9 +159,9 @@ async def bwcomparison(ctx, name: str, name2: str):
 
     embed = discord.Embed(colour = discord.Colour.blue(), title = f"Comparing bedwars stats for {name} and {name2} respectively.")
 
-    pretty.add_column('Criteria', ["Level", "Coins", "Games Played", 'Games Won', 'Total Kills', 'Final Kills','Final Kill/Death Ratio', 'Kill/Death Ratio', 'Winstreak', 'Beds Broken/Lost Ratio'])
-    pretty.add_column(name, [bw_level, bw_coins, total_played, total_won, total_kills, total_finals, FKDR, KDR, Winstreak, BBLR])
-    pretty.add_column(name2, [bw_level2, bw_coins2, total_played2, total_won2, total_kills2, total_finals2, FKDR2, KDR2, Winstreak2, BBLR2])
+    pretty.add_column('Criteria', ["Level", "Coins", "Games Played", 'Games Won', 'Win Rate', 'Total Kills', 'Final Kills','Final Kill/Death Ratio', 'Kill/Death Ratio', 'Winstreak', 'Beds Broken/Lost Ratio'])
+    pretty.add_column(name, [bw_level, bw_coins, total_played, total_won, fWR, total_kills, total_finals, FKDR, KDR, Winstreak, BBLR])
+    pretty.add_column(name2, [bw_level2, bw_coins2, total_played2, total_won2, fWR2, total_kills2, total_finals2, FKDR2, KDR2, Winstreak2, BBLR2])
 
 
 
