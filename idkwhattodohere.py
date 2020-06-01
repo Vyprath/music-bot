@@ -1,14 +1,20 @@
-from tabulate import tabulate
-import requests as rq
-import json
+import hypixel
+API_KEYS = ['6cd7ce31-00e7-4f4d-9ce2-60af5bcc4bb8']
 
-HYPIXEL_API = '6cd7ce31-00e7-4f4d-9ce2-60af5bcc4bb8'
+hypixel.setKeys(API_KEYS)
 
-
-
-name = "7T6"
-
-HYPIXEL_LINK = rq.get('https://api.hypixel.net/player?key={}&name={}'.format(HYPIXEL_API, name)).json()
-bWR = round(int(HYPIXEL_LINK['player']['stats']['Bedwars']['wins_bedwars']) / int(HYPIXEL_LINK['player']['stats']['Bedwars']["games_played_bedwars"]) * 100, 2)
-WR = f"{bWR}%"
-print(WR)
+Username = input('Enter Username: ')
+player = hypixel.Player(Username)
+UHCStats = player.JSON['stats']['UHC']
+UHCKills = UHCStats['kills']
+UHCWins =  UHCStats['wins']
+UHCScore = UHCStats['score']
+UHCCoins = UHCStats['coins']
+UHCDeaths = UHCStats['deaths']
+UHCKills = str(UHCKills)
+UHCWins = str(UHCWins)
+UHCScore = str(UHCScore)
+UHCCoins = str(UHCCoins)
+UHCDeaths = str(UHCDeaths)
+UHC_Stats = Username + "'s UHC Stats: \n" + 'Kills: ' + UHCKills + '\n' + 'Wins: ' + UHCWins + '\n' + 'Score: ' + UHCScore + '\n' + 'Coins: ' + UHCCoins + '\n' + 'Deaths: ' + UHCDeaths + '\n\n'
+print(UHC_Stats)
