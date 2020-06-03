@@ -103,6 +103,7 @@ async def bwstats(ctx, name: str):
     KDR = round(int(bwstats['kills_bedwars']) / int(bwstats['deaths_bedwars']), 2)
     FKDR = round(int(bwstats['final_kills_bedwars']) / int(bwstats['final_deaths_bedwars']), 2)
     Winstreak = bwstats['winstreak']
+    Beds_Broken = bwstats['beds_broken_bedwars']
     BBLR = round(int(bwstats['beds_broken_bedwars']) / int(bwstats['beds_lost_bedwars']), 2)
     WR = round(int(bwstats['wins_bedwars']) / int(bwstats["games_played_bedwars"]) * 100, 2)
 
@@ -121,6 +122,7 @@ async def bwstats(ctx, name: str):
     embed.add_field(name = "Kills/Death Ratio", value = f"{KDR}", inline = False)
     embed.add_field(name = "Final Kills/Death Ratio", value = f"{FKDR}", inline = False)
     embed.add_field(name = "Winstreak", value = f"{Winstreak}", inline = False)
+    embed.add_field(name = "Beds Broken", value = f"{Beds_Broken}", inline = False)
     embed.add_field(name = "Beds Broken/Lost Ratio", value = f"{BBLR}", inline = False)
 
     await ctx.send(embed=embed)
@@ -144,6 +146,7 @@ async def bwcomparison(ctx, *args: str):
         total_finals = bwstats['final_kills_bedwars']
         KDR = round(int(bwstats['kills_bedwars']) / int(bwstats['deaths_bedwars']), 2)
         FKDR = round(int(bwstats['final_kills_bedwars']) / int(bwstats['final_deaths_bedwars']), 2)
+        Beds_Broken1 = bwstats['beds_broken_bedwars']
         Winstreak = bwstats['winstreak']
         BBLR = round(int(bwstats['beds_broken_bedwars']) / int(bwstats['beds_lost_bedwars']), 2)
         WR = round(int(bwstats['wins_bedwars']) / int(bwstats["games_played_bedwars"]) * 100, 2)
@@ -162,14 +165,15 @@ async def bwcomparison(ctx, *args: str):
         KDR2 = round(int(bwstats['kills_bedwars']) / int(bwstats['deaths_bedwars']), 2)
         FKDR2 = round(int(bwstats['final_kills_bedwars']) / int(bwstats['final_deaths_bedwars']), 2)
         Winstreak2 = bwstats['winstreak']
+        Beds_Broken2 = bwstats['beds_broken_bedwars']
         BBLR2 = round(int(bwstats['beds_broken_bedwars']) / int(bwstats['beds_lost_bedwars']), 2)
 
         embed = discord.Embed(colour = discord.Colour.blue(), title = f"Comparing bedwars stats for {args[0]} and {args[1]} respectively.")
         await ctx.send(embed=embed)
 
         pretty.add_column('Criteria', ["Level", "Coins", "Games Played", 'Games Won', 'Win Rate', 'Total Kills', 'Final Kills','Final Kill/Death Ratio', 'Kill/Death Ratio', 'Winstreak', 'Beds Broken/Lost Ratio'])
-        pretty.add_column(args[0], [bw_level, bw_coins, total_played, total_won, fWR, total_kills, total_finals, FKDR, KDR, Winstreak, BBLR])
-        pretty.add_column(args[1], [bw_level2, bw_coins2, total_played2, total_won2, fWR2, total_kills2, total_finals2, FKDR2, KDR2, Winstreak2, BBLR2])
+        pretty.add_column(args[0], [bw_level1, bw_coins1, total_played1, total_won1, fWR1, total_kills1, total_finals1, FKDR1, KDR1, Beds_Broken1, Winstreak1, BBLR1])
+        pretty.add_column(args[1], [bw_level2, bw_coins2, total_played2, total_won2, fWR2, total_kills2, total_finals2, FKDR2, KDR2, Beds_Broken2, Winstreak2, BBLR2])
 
         await ctx.send(f"```diff\n{pretty}```")
 
@@ -187,6 +191,7 @@ async def bwcomparison(ctx, *args: str):
         KDR = round(int(bwstats['kills_bedwars']) / int(bwstats['deaths_bedwars']), 2)
         FKDR = round(int(bwstats['final_kills_bedwars']) / int(bwstats['final_deaths_bedwars']), 2)
         Winstreak = bwstats['winstreak']
+        Beds_Broken1 = bwstats['beds_broken_bedwars']
         BBLR = round(int(bwstats['beds_broken_bedwars']) / int(bwstats['beds_lost_bedwars']), 2)
         WR = round(int(bwstats['wins_bedwars']) / int(bwstats["games_played_bedwars"]) * 100, 2)
         fWR = f"{WR}%"
@@ -204,6 +209,7 @@ async def bwcomparison(ctx, *args: str):
         KDR2 = round(int(bwstats['kills_bedwars']) / int(bwstats['deaths_bedwars']), 2)
         FKDR2 = round(int(bwstats['final_kills_bedwars']) / int(bwstats['final_deaths_bedwars']), 2)
         Winstreak2 = bwstats['winstreak']
+        Beds_Broken2 = bwstats['beds_broken_bedwars']
         BBLR2 = round(int(bwstats['beds_broken_bedwars']) / int(bwstats['beds_lost_bedwars']), 2)
 
         HYPIXEL_LINK3 = rq.get('https://api.hypixel.net/player?key={}&name={}'.format(HYPIXEL_API, args[2])).json()
@@ -219,16 +225,16 @@ async def bwcomparison(ctx, *args: str):
         KDR3 = round(int(bwstats['kills_bedwars']) / int(bwstats['deaths_bedwars']), 2)
         FKDR3 = round(int(bwstats['final_kills_bedwars']) / int(bwstats['final_deaths_bedwars']), 2)
         Winstreak3 = bwstats['winstreak']
+        Beds_Broken3 = bwstats['beds_broken_bedwars']
         BBLR3 = round(int(bwstats['beds_broken_bedwars']) / int(bwstats['beds_lost_bedwars']), 2)
 
         embed = discord.Embed(colour = discord.Colour.blue(), title = f"Comparing bedwars stats for {args[0]}, {args[1]} and {args[2]} respectively.")
         await ctx.send(embed=embed)
 
         pretty.add_column('Criteria', ["Level", "Coins", "Games Played", 'Games Won', 'Win Rate', 'Total Kills', 'Final Kills','Final Kill/Death Ratio', 'Kill/Death Ratio', 'Winstreak', 'Beds Broken/Lost Ratio'])
-        pretty.add_column(args[0], [bw_level, bw_coins, total_played, total_won, fWR, total_kills, total_finals, FKDR, KDR, Winstreak, BBLR])
-        pretty.add_column(args[1], [bw_level2, bw_coins2, total_played2, total_won2, fWR2, total_kills2, total_finals2, FKDR2, KDR2, Winstreak2, BBLR2])
-        pretty.add_column(args[2], [bw_level3, bw_coins3, total_played3, total_won3, fWR3, total_kills3, total_finals3, FKDR3, KDR3, Winstreak3, BBLR3])
-
+        pretty.add_column(args[0], [bw_level1, bw_coins1, total_played1, total_won1, fWR1, total_kills1, total_finals1, FKDR1, KDR1, Beds_Broken1, Winstreak1, BBLR1])
+        pretty.add_column(args[1], [bw_level2, bw_coins2, total_played2, total_won2, fWR2, total_kills2, total_finals2, FKDR2, KDR2, Beds_Broken2, Winstreak2, BBLR2])
+        pretty.add_column(args[2], [bw_level3, bw_coins3, total_played3, total_won3, fWR3, total_kills3, total_finals3, FKDR3, KDR3, Beds_Broken3, Winstreak3, BBLR3])
         await ctx.send(f"```diff\n{pretty}```")
 
     elif len(args) == 4:
@@ -297,10 +303,10 @@ async def bwcomparison(ctx, *args: str):
         await ctx.send(embed=embed)
 
         pretty.add_column('Criteria', ["Level", "Coins", "Games Played", 'Games Won', 'Win Rate', 'Total Kills', 'Final Kills','Final Kill/Death Ratio', 'Kill/Death Ratio', 'Winstreak', 'Beds Broken/Lost Ratio'])
-        pretty.add_column(args[0], [bw_level1, bw_coins1, total_played1, total_won1, fWR1, total_kills1, total_finals1, FKDR1, KDR1, Winstreak1, BBLR1])
-        pretty.add_column(args[1], [bw_level2, bw_coins2, total_played2, total_won2, fWR2, total_kills2, total_finals2, FKDR2, KDR2, Winstreak2, BBLR2])
-        pretty.add_column(args[2], [bw_level3, bw_coins3, total_played3, total_won3, fWR3, total_kills3, total_finals3, FKDR3, KDR3, Winstreak3, BBLR3])
-        pretty.add_column(args[3], [bw_level4, bw_coins4, total_played4, total_won4, fWR4, total_kills4, total_finals4, FKDR4, KDR4, Winstreak4, BBLR4])
+        pretty.add_column(args[0], [bw_level1, bw_coins1, total_played1, total_won1, fWR1, total_kills1, total_finals1, FKDR1, KDR1, Beds_Broken1, Winstreak1, BBLR1])
+        pretty.add_column(args[1], [bw_level2, bw_coins2, total_played2, total_won2, fWR2, total_kills2, total_finals2, FKDR2, KDR2, Beds_Broken2, Winstreak2, BBLR2])
+        pretty.add_column(args[2], [bw_level3, bw_coins3, total_played3, total_won3, fWR3, total_kills3, total_finals3, FKDR3, KDR3, Beds_Broken3, Winstreak3, BBLR3])
+        pretty.add_column(args[3], [bw_level4, bw_coins4, total_played4, total_won4, fWR4, total_kills4, total_finals4, FKDR4, KDR4, Beds_Broken4, Winstreak4, BBLR4])
 
         await ctx.send(f"```diff\n{pretty}```")
 
@@ -319,6 +325,7 @@ async def bwcomparison(ctx, *args: str):
         Winstreak1 = bwstats['winstreak']
         BBLR1 = round(int(bwstats['beds_broken_bedwars']) / int(bwstats['beds_lost_bedwars']), 2)
         WR1 = round(int(bwstats['wins_bedwars']) / int(bwstats["games_played_bedwars"]) * 100, 2)
+        Beds_Broken1 = bwstats['beds_broken_bedwars']
         fWR1 = f"{WR1}%"
 
         HYPIXEL_LINK2 = rq.get('https://api.hypixel.net/player?key={}&name={}'.format(HYPIXEL_API, args[1])).json()
@@ -335,6 +342,7 @@ async def bwcomparison(ctx, *args: str):
         FKDR2 = round(int(bwstats['final_kills_bedwars']) / int(bwstats['final_deaths_bedwars']), 2)
         Winstreak2 = bwstats['winstreak']
         BBLR2 = round(int(bwstats['beds_broken_bedwars']) / int(bwstats['beds_lost_bedwars']), 2)
+        Beds_Broken2 = bwstats['beds_broken_bedwars']
 
         HYPIXEL_LINK3 = rq.get('https://api.hypixel.net/player?key={}&name={}'.format(HYPIXEL_API, args[2])).json()
         bwstats = HYPIXEL_LINK3['player']['stats']['Bedwars']
@@ -348,6 +356,7 @@ async def bwcomparison(ctx, *args: str):
         total_finals3 = bwstats['final_kills_bedwars']
         KDR3 = round(int(bwstats['kills_bedwars']) / int(bwstats['deaths_bedwars']), 2)
         FKDR3 = round(int(bwstats['final_kills_bedwars']) / int(bwstats['final_deaths_bedwars']), 2)
+        Beds_Broken3 = bwstats['beds_broken_bedwars']
         Winstreak3 = bwstats['winstreak']
         BBLR3 = round(int(bwstats['beds_broken_bedwars']) / int(bwstats['beds_lost_bedwars']), 2)
 
@@ -357,6 +366,7 @@ async def bwcomparison(ctx, *args: str):
         bw_coins4 = bwstats['coins']
         total_played4 = bwstats["games_played_bedwars"]
         total_won4 = bwstats['wins_bedwars']
+        Beds_Broken4 = bwstats['beds_broken_bedwars']
         WR4 = round(int(bwstats['wins_bedwars']) / int(bwstats["games_played_bedwars"]) * 100, 2)
         fWR4 = f'{WR4}%'
         total_kills4 = bwstats['kills_bedwars']
@@ -371,6 +381,7 @@ async def bwcomparison(ctx, *args: str):
         bw_level5 = HYPIXEL_LINK5['player']['achievements']['bedwars_level']
         bw_coins5 = bwstats['coins']
         total_played5 = bwstats["games_played_bedwars"]
+        Beds_Broken5 = bwstats['beds_broken_bedwars']
         total_won5 = bwstats['wins_bedwars']
         WR5 = round(int(bwstats['wins_bedwars']) / int(bwstats["games_played_bedwars"]) * 100, 2)
         fWR5 = f'{WR5}%'
@@ -385,11 +396,11 @@ async def bwcomparison(ctx, *args: str):
         await ctx.send(embed=embed)
 
         pretty.add_column('Criteria', ["Level", "Coins", "Games Played", 'Games Won', 'Win Rate', 'Total Kills', 'Final Kills','Final Kill/Death Ratio', 'Kill/Death Ratio', 'Winstreak', 'Beds Broken/Lost Ratio'])
-        pretty.add_column(args[0], [bw_level1, bw_coins1, total_played1, total_won1, fWR1, total_kills1, total_finals1, FKDR1, KDR1, Winstreak1, BBLR1])
-        pretty.add_column(args[1], [bw_level2, bw_coins2, total_played2, total_won2, fWR2, total_kills2, total_finals2, FKDR2, KDR2, Winstreak2, BBLR2])
-        pretty.add_column(args[2], [bw_level3, bw_coins3, total_played3, total_won3, fWR3, total_kills3, total_finals3, FKDR3, KDR3, Winstreak3, BBLR3])
-        pretty.add_column(args[3], [bw_level4, bw_coins4, total_played4, total_won4, fWR4, total_kills4, total_finals4, FKDR4, KDR4, Winstreak4, BBLR4])
-        pretty.add_column(args[4], [bw_level5, bw_coins5, total_played5, total_won5, fWR5, total_kills5, total_finals5, FKDR5, KDR5, Winstreak5, BBLR5])
+        pretty.add_column(args[0], [bw_level1, bw_coins1, total_played1, total_won1, fWR1, total_kills1, total_finals1, FKDR1, KDR1, Beds_Broken1, Winstreak1, BBLR1])
+        pretty.add_column(args[1], [bw_level2, bw_coins2, total_played2, total_won2, fWR2, total_kills2, total_finals2, FKDR2, KDR2, Beds_Broken2, Winstreak2, BBLR2])
+        pretty.add_column(args[2], [bw_level3, bw_coins3, total_played3, total_won3, fWR3, total_kills3, total_finals3, FKDR3, KDR3, Beds_Broken3, Winstreak3, BBLR3])
+        pretty.add_column(args[3], [bw_level4, bw_coins4, total_played4, total_won4, fWR4, total_kills4, total_finals4, FKDR4, KDR4, Beds_Broken4, Winstreak4, BBLR4])
+        pretty.add_column(args[4], [bw_level5, bw_coins5, total_played5, total_won5, fWR5, total_kills5, total_finals5, FKDR5, KDR5, Beds_Broken5, Winstreak5, BBLR5])
         await ctx.send(f"```diff\n{pretty}```")
 
     elif len(args) == 6:
@@ -406,6 +417,7 @@ async def bwcomparison(ctx, *args: str):
         FKDR1 = round(int(bwstats['final_kills_bedwars']) / int(bwstats['final_deaths_bedwars']), 2)
         Winstreak1 = bwstats['winstreak']
         BBLR1 = round(int(bwstats['beds_broken_bedwars']) / int(bwstats['beds_lost_bedwars']), 2)
+        Beds_Broken1 = bwstats['beds_broken_bedwars']
         WR1 = round(int(bwstats['wins_bedwars']) / int(bwstats["games_played_bedwars"]) * 100, 2)
         fWR1 = f"{WR1}%"
 
@@ -413,6 +425,7 @@ async def bwcomparison(ctx, *args: str):
         bwstats = HYPIXEL_LINK2['player']['stats']['Bedwars']
         bw_level2 = HYPIXEL_LINK2['player']['achievements']['bedwars_level']
         bw_coins2 = bwstats['coins']
+        Beds_Broken2 = bwstats['beds_broken_bedwars']
         total_played2 = bwstats["games_played_bedwars"]
         total_won2 = bwstats['wins_bedwars']
         WR2 = round(int(bwstats['wins_bedwars']) / int(bwstats["games_played_bedwars"]) * 100, 2)
@@ -431,6 +444,7 @@ async def bwcomparison(ctx, *args: str):
         total_played3 = bwstats["games_played_bedwars"]
         total_won3 = bwstats['wins_bedwars']
         WR3 = round(int(bwstats['wins_bedwars']) / int(bwstats["games_played_bedwars"]) * 100, 2)
+        Beds_Broken3 = bwstats['beds_broken_bedwars']
         fWR3 = f'{WR3}%'
         total_kills3 = bwstats['kills_bedwars']
         total_finals3 = bwstats['final_kills_bedwars']
@@ -443,6 +457,7 @@ async def bwcomparison(ctx, *args: str):
         bwstats = HYPIXEL_LINK4['player']['stats']['Bedwars']
         bw_level4 = HYPIXEL_LINK4['player']['achievements']['bedwars_level']
         bw_coins4 = bwstats['coins']
+        Beds_Broken4 = bwstats['beds_broken_bedwars']
         total_played4 = bwstats["games_played_bedwars"]
         total_won4 = bwstats['wins_bedwars']
         WR4 = round(int(bwstats['wins_bedwars']) / int(bwstats["games_played_bedwars"]) * 100, 2)
@@ -460,6 +475,7 @@ async def bwcomparison(ctx, *args: str):
         bw_coins5 = bwstats['coins']
         total_played5 = bwstats["games_played_bedwars"]
         total_won5 = bwstats['wins_bedwars']
+        Beds_Broken5 = bwstats['beds_broken_bedwars']
         WR5 = round(int(bwstats['wins_bedwars']) / int(bwstats["games_played_bedwars"]) * 100, 2)
         fWR5 = f'{WR5}%'
         total_kills5 = bwstats['kills_bedwars']
@@ -476,6 +492,7 @@ async def bwcomparison(ctx, *args: str):
         total_played6 = bwstats["games_played_bedwars"]
         total_won6 = bwstats['wins_bedwars']
         WR6 = round(int(bwstats['wins_bedwars']) / int(bwstats["games_played_bedwars"]) * 100, 2)
+        Beds_Broken6 = bwstats['beds_broken_bedwars']
         fWR6 = f'{WR6}%'
         total_kills6 = bwstats['kills_bedwars']
         total_finals6 = bwstats['final_kills_bedwars']
@@ -488,32 +505,48 @@ async def bwcomparison(ctx, *args: str):
         await ctx.send(embed=embed)
 
         pretty.add_column('Criteria', ["Level", "Coins", "Games Played", 'Games Won', 'Win Rate', 'Total Kills', 'Final Kills','Final Kill/Death Ratio', 'Kill/Death Ratio', 'Winstreak', 'Beds Broken/Lost Ratio'])
-        pretty.add_column(args[0], [bw_level1, bw_coins1, total_played1, total_won1, fWR1, total_kills1, total_finals1, FKDR1, KDR1, Winstreak1, BBLR1])
-        pretty.add_column(args[1], [bw_level2, bw_coins2, total_played2, total_won2, fWR2, total_kills2, total_finals2, FKDR2, KDR2, Winstreak2, BBLR2])
-        pretty.add_column(args[2], [bw_level3, bw_coins3, total_played3, total_won3, fWR3, total_kills3, total_finals3, FKDR3, KDR3, Winstreak3, BBLR3])
-        pretty.add_column(args[3], [bw_level4, bw_coins4, total_played4, total_won4, fWR4, total_kills4, total_finals4, FKDR4, KDR4, Winstreak4, BBLR4])
-        pretty.add_column(args[4], [bw_level5, bw_coins5, total_played5, total_won5, fWR5, total_kills5, total_finals5, FKDR5, KDR5, Winstreak5, BBLR5])
-        pretty.add_column(args[5], [bw_level6, bw_coins6, total_played6, total_won6, fWR6, total_kills6, total_finals6, FKDR6, KDR6, Winstreak6, BBLR6])
+        pretty.add_column(args[0], [bw_level1, bw_coins1, total_played1, total_won1, fWR1, total_kills1, total_finals1, FKDR1, KDR1, Beds_Broken1, Winstreak1, BBLR1])
+        pretty.add_column(args[1], [bw_level2, bw_coins2, total_played2, total_won2, fWR2, total_kills2, total_finals2, FKDR2, KDR2, Beds_Broken2, Winstreak2, BBLR2])
+        pretty.add_column(args[2], [bw_level3, bw_coins3, total_played3, total_won3, fWR3, total_kills3, total_finals3, FKDR3, KDR3, Beds_Broken3, Winstreak3, BBLR3])
+        pretty.add_column(args[3], [bw_level4, bw_coins4, total_played4, total_won4, fWR4, total_kills4, total_finals4, FKDR4, KDR4, Beds_Broken4, Winstreak4, BBLR4])
+        pretty.add_column(args[4], [bw_level5, bw_coins5, total_played5, total_won5, fWR5, total_kills5, total_finals5, FKDR5, KDR5, Beds_Broken5, Winstreak5, BBLR5])
+        pretty.add_column(args[5], [bw_level6, bw_coins6, total_played6, total_won6, fWR6, total_kills6, total_finals6, FKDR6, KDR6, Beds_Broken6, Winstreak6, BBLR6])
         await ctx.send(f"```diff\n{pretty}```")
     else:
         await ctx.send("Cant compare statistics of more than 6 players simultaneously. Sorry.")
 
 
-
-
-
-
-
-
-
-
     
 
-#@client.command(aliases = ['sw', 'sws'])
-#async def swstats(ctx, name: str):
- #   HYPIXEL_LINK = rq.get('https://api.hypixel.net/player?key={}&name={}'.format(HYPIXEL_API, name)).json()
-    #swstats = HYPIXEL_API['player']['stats']['SkyWars']
-   # Souls = swstats['souls']
+@client.command(aliases = ['sw', 'sws'])
+async def swstats(ctx, name: str):
+    HYPIXEL_LINK = rq.get('https://api.hypixel.net/player?key={}&name={}'.format(HYPIXEL_API, name)).json()
+    swstats = HYPIXEL_LINK['player']['stats']['SkyWars']
+    Winstreak = swstats['win_streak']
+    Souls = swstats['souls']
+    Played = swstats['games']
+    Kills = swstats['kills']
+    Won = swstats['wins']
+    Lost = swstats['losses']
+    Coins = swstats['coins']
+    KDR = round(int(swstats['kills'])/int(swstats['deaths']), 2)
+    WR = round(int(swstats['wins']) / int(swstats["games"]) * 100, 2)
+
+    embed = discord.Embed(colour = discord.Colour.blue(), title = f"Skywars stats for {name}")
+
+
+    embed.set_author(name = "Requested by {}".format(ctx.author.name), icon_url= f"{ctx.author.avatar_url}")
+    embed.set_image(url = 'https://image.ibb.co/htOT5q/liUywIa.png')
+    embed.add_field(name = "Souls", value = f"{Souls}", inline = False)
+    embed.add_field(name = "Played", value = f"{Played}", inline = False)
+    embed.add_field(name = "Kills", value = f"{Kills}", inline = False)
+    embed.add_field(name = "Won", value = f"{Won}", inline = False)
+    embed.add_field(name = "Lost", value = f"{Lost}", inline = False)
+    embed.add_field(name = "Coins", value = f"{Coins}", inline = False)
+    embed.add_field(name = "KDR", value = f"{KDR}", inline = False)
+    embed.add_field(name = "WR", value = f"{WR}%", inline = False)
+
+    await ctx.send(embed=embed)
 
 
 
@@ -523,4 +556,7 @@ async def bwcomparison(ctx, *args: str):
 
 
 
-client.run(Token)
+
+
+
+client.run(TestToken)
