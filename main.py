@@ -559,4 +559,4 @@ async def swstats(ctx, name: str):
 
 
 
-client.run(TestToken)
+client.run(Token)
