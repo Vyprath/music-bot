@@ -15,6 +15,7 @@ Token = ''
 YOUTUBE_API = ''
 HYPIXEL_API = ''
 
+#on the event that the bot is ready, print this.
 @client.event
 async def on_ready():
     print('Bot is ready.')
