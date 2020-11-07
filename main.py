@@ -1,5 +1,5 @@
 import discord
-from discord.ext import commands
+from discord.ext import commands, Intents
 from discord.utils import get
 import random
 import os
@@ -10,7 +10,10 @@ import re
 import json
 from youtube_search import YoutubeSearch
 
-client = commands.Bot(command_prefix = '?')
+intents = Intents.default()
+Intents.members = True
+
+client = commands.Bot(command_prefix = '?', intents=intents)
 Token = ''
 YOUTUBE_API = ''
 HYPIXEL_API = ''
